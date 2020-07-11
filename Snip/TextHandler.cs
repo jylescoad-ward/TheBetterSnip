@@ -75,7 +75,7 @@ namespace Winter
 
                 if (Globals.EmptyFileIfNoTrackPlaying)
                 {
-                    File.WriteAllText(@Application.StartupPath + @"\Snip.txt", string.Empty);
+                    File.WriteAllText(@Application.StartupPath + @"\Snip.txt", LocalizedMessages.NoTrackPlaying);
                 }
                 else
                 {

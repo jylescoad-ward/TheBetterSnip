@@ -114,9 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiHelper.cs" />
-    <Compile Include="ApplicationKeys.cs" />
     <Compile Include="AssemblyInformation.cs" />
     <Compile Include="CheckVersion.cs" />
+    <Compile Include="ApplicationKeys.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="KeyboardHook.cs" />
