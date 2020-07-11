@@ -1,4 +1,4 @@
-SNIP
+THEBETTERSNIP
 ====
 Copyright 2012-2018 David Rudie <d.rudie@gmail.com> (Original Author)
 
