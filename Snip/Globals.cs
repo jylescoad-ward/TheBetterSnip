@@ -1,6 +1,6 @@
 ﻿#region File Information
 /*
- * Copyright (C) 2012-2019 David Rudie
+ * Copyright (C) 2012-2018 David Rudie
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -89,7 +89,13 @@ namespace Winter
         public enum MediaPlayerSelection : int
         {
             Spotify = 0,
-            Itunes = 1
+            iTunes = 1,
+            Winamp = 2,
+            foobar2000 = 3,
+            VLC = 4,
+            GPMDP = 5,
+            QuodLibet = 6,
+            WindowsMediaPlayer = 7
         }
 
         public enum MediaCommand : int

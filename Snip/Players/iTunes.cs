@@ -1,6 +1,6 @@
 ﻿#region File Information
 /*
- * Copyright (C) 2012-2019 David Rudie
+ * Copyright (C) 2012-2018 David Rudie
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,34 +24,29 @@ namespace Winter
     using System.Windows.Forms;
     using iTunesLib;
 
-    internal sealed class Itunes : MediaPlayer
+    internal sealed class iTunes : MediaPlayer
     {
-        private iTunesApp ItunesApplication = null;
+        private iTunesApp iTunesApplication = null;
  
         // This will hold the volume prior to it being muted and restored from it.
         private int muteVolume = 0;
 
         private delegate void Router(object arg);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1300:SpecifyMessageBoxOptions")]
         public override void Load()
         {
             try
             {
-                this.ItunesApplication = new iTunesApp();
+                this.iTunesApplication = new iTunesApp();
 
-                this.ItunesApplication.OnPlayerPlayEvent += new _IiTunesEvents_OnPlayerPlayEventEventHandler(this.App_OnPlayerPlayEvent);
-                this.ItunesApplication.OnPlayerPlayingTrackChangedEvent += new _IiTunesEvents_OnPlayerPlayingTrackChangedEventEventHandler(this.App_OnPlayerPlayingTrackChangedEvent);
-                this.ItunesApplication.OnPlayerStopEvent += new _IiTunesEvents_OnPlayerStopEventEventHandler(this.App_OnPlayerStopEvent);
-                this.ItunesApplication.OnQuittingEvent += new _IiTunesEvents_OnQuittingEventEventHandler(this.App_OnPlayerQuittingEvent);
+                this.iTunesApplication.OnPlayerPlayEvent += new _IiTunesEvents_OnPlayerPlayEventEventHandler(this.App_OnPlayerPlayEvent);
+                this.iTunesApplication.OnPlayerPlayingTrackChangedEvent += new _IiTunesEvents_OnPlayerPlayingTrackChangedEventEventHandler(this.App_OnPlayerPlayingTrackChangedEvent);
+                this.iTunesApplication.OnPlayerStopEvent += new _IiTunesEvents_OnPlayerStopEventEventHandler(this.App_OnPlayerStopEvent);
+                this.iTunesApplication.OnQuittingEvent += new _IiTunesEvents_OnQuittingEventEventHandler(this.App_OnPlayerQuittingEvent);
             }
             catch (System.Runtime.InteropServices.COMException comException)
             {
-                MessageBox.Show(
-                        LocalizedMessages.ItunesException + "\n\n" + comException.Message,
-                        LocalizedMessages.SnipForm,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                MessageBox.Show(LocalizedMessages.iTunesException + "\n\n" + comException.Message, LocalizedMessages.SnipForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -59,70 +54,70 @@ namespace Winter
         {
             base.Unload();
 
-            if (this.ItunesApplication != null)
+            if (this.iTunesApplication != null)
             {
-                this.ItunesApplication.OnPlayerPlayEvent -= this.App_OnPlayerPlayEvent;
-                this.ItunesApplication.OnPlayerPlayingTrackChangedEvent -= this.App_OnPlayerPlayingTrackChangedEvent;
-                this.ItunesApplication.OnPlayerStopEvent -= this.App_OnPlayerStopEvent;
-                this.ItunesApplication.OnQuittingEvent -= this.App_OnPlayerQuittingEvent;
+                this.iTunesApplication.OnPlayerPlayEvent -= this.App_OnPlayerPlayEvent;
+                this.iTunesApplication.OnPlayerPlayingTrackChangedEvent -= this.App_OnPlayerPlayingTrackChangedEvent;
+                this.iTunesApplication.OnPlayerStopEvent -= this.App_OnPlayerStopEvent;
+                this.iTunesApplication.OnQuittingEvent -= this.App_OnPlayerQuittingEvent;
 
-                this.ItunesApplication = null;
+                this.iTunesApplication = null;
             }
         }
 
         public override void ChangeToNextTrack()
         {
-            this.ItunesApplication.NextTrack();
+            this.iTunesApplication.NextTrack();
         }
 
         public override void ChangeToPreviousTrack()
         {
-            this.ItunesApplication.PreviousTrack();
+            this.iTunesApplication.PreviousTrack();
         }
 
         public override void IncreasePlayerVolume()
         {
-            this.ItunesApplication.SoundVolume++;
+            this.iTunesApplication.SoundVolume++;
         }
 
         public override void DecreasePlayerVolume()
         {
-            this.ItunesApplication.SoundVolume--;
+            this.iTunesApplication.SoundVolume--;
         }
 
         public override void MutePlayerAudio()
         {
-            if (this.ItunesApplication.SoundVolume > 0)
+            if (this.iTunesApplication.SoundVolume > 0)
             {
-                this.muteVolume = this.ItunesApplication.SoundVolume;
-                this.ItunesApplication.SoundVolume = 0;
+                this.muteVolume = this.iTunesApplication.SoundVolume;
+                this.iTunesApplication.SoundVolume = 0;
             }
             else
             {
-                this.ItunesApplication.SoundVolume = this.muteVolume;
+                this.iTunesApplication.SoundVolume = this.muteVolume;
             }
         }
 
         public override void PlayOrPauseTrack()
         {
-            this.ItunesApplication.Play();
+            this.iTunesApplication.Play();
         }
 
         public override void PauseTrack()
         {
-            this.ItunesApplication.Pause();
+            this.iTunesApplication.Pause();
         }
 
         public override void StopTrack()
         {
-            this.ItunesApplication.Stop();
+            this.iTunesApplication.Stop();
         }
 
         private void App_OnPlayerPlayEvent(object sender)
         {
-            IITTrack track = this.ItunesApplication.CurrentTrack;
+            IITTrack track = this.iTunesApplication.CurrentTrack;
 
-            if (!string.IsNullOrEmpty(track.Artist) && !string.IsNullOrEmpty(track.Name) && string.IsNullOrEmpty(this.ItunesApplication.CurrentStreamTitle))
+            if (!string.IsNullOrEmpty(track.Artist) && !string.IsNullOrEmpty(track.Name) && string.IsNullOrEmpty(this.iTunesApplication.CurrentStreamTitle))
             {
                 if (Globals.SaveAlbumArtwork)
                 {
@@ -142,21 +137,21 @@ namespace Winter
 
                 TextHandler.UpdateText(track.Name, track.Artist, track.Album);
             }
-            else if (string.IsNullOrEmpty(track.Artist) && !string.IsNullOrEmpty(track.Name) && string.IsNullOrEmpty(this.ItunesApplication.CurrentStreamTitle))
+            else if (string.IsNullOrEmpty(track.Artist) && !string.IsNullOrEmpty(track.Name) && string.IsNullOrEmpty(this.iTunesApplication.CurrentStreamTitle))
             {
                 TextHandler.UpdateText(track.Name);
             }
-            else if (!string.IsNullOrEmpty(this.ItunesApplication.CurrentStreamTitle))
+            else if (!string.IsNullOrEmpty(this.iTunesApplication.CurrentStreamTitle))
             {
-                TextHandler.UpdateText(this.ItunesApplication.CurrentStreamTitle);
+                TextHandler.UpdateText(this.iTunesApplication.CurrentStreamTitle);
             }
         }
 
         private void App_OnPlayerPlayingTrackChangedEvent(object sender)
         {
-            IITTrack track = this.ItunesApplication.CurrentTrack;
+            IITTrack track = this.iTunesApplication.CurrentTrack;
 
-            if (!string.IsNullOrEmpty(track.Artist) && !string.IsNullOrEmpty(track.Name) && string.IsNullOrEmpty(this.ItunesApplication.CurrentStreamTitle))
+            if (!string.IsNullOrEmpty(track.Artist) && !string.IsNullOrEmpty(track.Name) && string.IsNullOrEmpty(this.iTunesApplication.CurrentStreamTitle))
             {
                 if (Globals.SaveAlbumArtwork)
                 {
@@ -176,9 +171,9 @@ namespace Winter
 
                 TextHandler.UpdateText(track.Name, track.Artist, track.Album);
             }
-            else if (!string.IsNullOrEmpty(this.ItunesApplication.CurrentStreamTitle))
+            else if (!string.IsNullOrEmpty(this.iTunesApplication.CurrentStreamTitle))
             {
-                TextHandler.UpdateText(this.ItunesApplication.CurrentStreamTitle);
+                TextHandler.UpdateText(this.iTunesApplication.CurrentStreamTitle);
             }
         }
 
@@ -203,7 +198,7 @@ namespace Winter
                 string.Format(
                     CultureInfo.InvariantCulture,
                     LocalizedMessages.PlayerIsNotRunning,
-                    LocalizedMessages.Itunes));
+                    LocalizedMessages.iTunes));
         }
     }
 }
