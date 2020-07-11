@@ -80,7 +80,7 @@ namespace Winter
                                 }
                                 else
                                 {
-                                    TextHandler.UpdateText(windowTitle[0].Trim());
+                                    TextHandler.UpdateText(windowTitle[0].Trim().Substring(windowTitle[0].Trim().IndexOf('.') + 2));
                                 }
                             }
 

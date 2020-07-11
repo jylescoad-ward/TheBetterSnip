@@ -78,7 +78,7 @@ namespace Winter
                     File.WriteAllText(@Application.StartupPath + @"\Snip.txt", LocalizedMessages.NoTrackPlaying);
                 }
                 else
-                {
+                {//text.Substring(text.IndexOf('. ') + 1)
                     File.WriteAllText(@Application.StartupPath + @"\Snip.txt", text);
                 }
 
