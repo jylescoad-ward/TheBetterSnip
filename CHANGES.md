@@ -1,5 +1,9 @@
 CHANGES
 =======
+**v6.10.3 (2020-Jul-11):**
+* When no song is playing file output is now "No Track Playing" instead
+	of an empty file.
+
 **v6.10.2 (2018-Jul-24):**
 * Merged pull request #267 from GenesisFR, which refactors a lot of code and
     clears out artwork when Snip is exited.
