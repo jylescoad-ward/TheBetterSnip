@@ -1,7 +1,10 @@
 SNIP
 ====
-Copyright 2012-2018 David Rudie <d.rudie@gmail.com>
-Project Page: [Snip](https://github.com/dlrudie/Snip)
+Copyright 2012-2018 David Rudie <d.rudie@gmail.com> (Original Author)
+
+Copyright 2020 Jyles Coad-Ward <jyles@dariox.club>
+
+Project Page: [TheBetterSnip](https://github.com/jylescoad-ward/TheBetterSnip)
 
 ABOUT
 =====
